@@ -1,17 +1,18 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import {
   Controller,
+  FieldValues,
   FormProvider,
   useFormContext,
 } from "react-hook-form";
-import { cn } from "../../lib/utils";
-import { Label } from "./label";
+
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 const Form = FormProvider;
 
 type FormFieldContextValue<
-  TFieldValues extends any = any,
+  TFieldValues extends FieldValues = FieldValues,
   TName extends any = any
 > = {
   name: TName;

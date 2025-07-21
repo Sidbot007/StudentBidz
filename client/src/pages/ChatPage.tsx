@@ -7,7 +7,6 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { ArrowLeft } from 'lucide-react';
 import { Client } from '@stomp/stompjs';
-import type { IMessage } from '@stomp/stompjs';
 import type { Message } from '../lib/types';
 
 export default function ChatPage() {
@@ -34,7 +33,7 @@ export default function ChatPage() {
       reconnectDelay: 5000,
       onConnect: () => {
         setConnected(true);
-        client.subscribe(`/topic/chat/${productId}`, (msg: IMessage) => {
+        client.subscribe(`/topic/chat/${productId}`, (msg: import('@stomp/stompjs').IMessage) => {
           const message: Message = JSON.parse(msg.body);
           setMessages((prev) => [...prev, message]);
         });
