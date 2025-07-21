@@ -6,10 +6,11 @@ import { Badge } from '../components/ui/badge';
 import { apiGet } from '../lib/api';
 import type { Product } from '../lib/types';
 import { Client } from '@stomp/stompjs';
-import { formatCurrency } from '../lib/utils';
-import { Clock } from 'lucide-react';
+import { formatCurrency, formatTimeRemaining } from '../lib/utils';
+import { Clock, IndianRupee } from 'lucide-react';
 import { queryClient } from '../lib/queryClient';
 import { useAuth } from '../lib/auth';
+import { Button } from '../components/ui/button';
 
 function ProductCard({ product }: { product: Product }) {
   const {} = useAuth();

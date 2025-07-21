@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { apiGet } from '../lib/api';
+import { apiGet, apiDelete } from '../lib/api';
 import { useAuth } from '../lib/auth';
-import type { Product } from '../lib/types';
 import { formatCurrency } from '../lib/utils';
-import { Clock, IndianRupee, GanttChart } from 'lucide-react';
+import { IndianRupee } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import ChatIconButton from '../components/ui/ChatIconButton';
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import type { Bid } from '../lib/types';
+import { Button } from '../components/ui/button';
 
 
 export default function MyBidsPage() {
@@ -94,7 +94,11 @@ export default function MyBidsPage() {
                     <button
                       className="mt-2 ml-2 p-2 rounded hover:bg-red-100 text-gray-400 hover:text-red-600 transition"
                       title="Delete Bid"
-                      onClick={() => deleteBidMutation.mutate(bid.id)}
+                      onClick={() => {
+                        if (bid.id !== undefined) {
+                          deleteBidMutation.mutate(bid.id);
+                        }
+                      }}
                     >
                       <X className="h-5 w-5" />
                     </button>

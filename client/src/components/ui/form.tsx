@@ -22,12 +22,7 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue
 );
 
-// Define the props for FormField directly, using string for name
-interface FormFieldProps<TFieldValues extends any = any, TName extends string = string> {
-  name: TName;
-  render: (props: any) => React.ReactElement;
-  [key: string]: any;
-}
+// The FormFieldProps interface is no longer needed and will be removed.
 
 const FormField = <
   TFieldValues extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues,
