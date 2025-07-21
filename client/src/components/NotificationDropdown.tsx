@@ -8,7 +8,7 @@ import { apiGet, apiPatch, apiDelete } from '../lib/api';
 import { useAuth } from '../lib/auth';
 import type { Notification } from '../lib/types';
 import { queryClient } from '../lib/queryClient';
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 
 const getNotificationIcon = (type: Notification['type']) => {
   switch (type) {
@@ -100,7 +100,7 @@ export default function NotificationDropdown() {
       brokerURL: `ws://localhost:8080/ws?token=${token}`,
       reconnectDelay: 5000,
       onConnect: () => {
-        client.subscribe('/user/topic/notifications', (msg: IMessage) => {
+        client.subscribe('/user/topic/notifications', (msg: import('@stomp/stompjs').IMessage) => {
           const notification: Notification = JSON.parse(msg.body);
           // Add new notification to the list
           queryClient.setQueryData(['/notifications'], (oldData: Notification[] | undefined) => {

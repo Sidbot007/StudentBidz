@@ -5,7 +5,7 @@ import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { apiGet } from '../lib/api';
 import type { Product } from '../lib/types';
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 import { formatCurrency } from '../lib/utils';
 import { Clock } from 'lucide-react';
 import { queryClient } from '../lib/queryClient';
