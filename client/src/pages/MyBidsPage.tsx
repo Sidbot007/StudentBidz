@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { apiGet, apiDelete } from '../lib/api';
-import type { Bid} from '../lib/types';
 import { Link } from 'wouter';
-import { IndianRupee } from 'lucide-react';
-import { formatCurrency } from '../lib/utils';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { apiGet } from '../lib/api';
 import { useAuth } from '../lib/auth';
-import { MessageSquare } from 'lucide-react';
-import { X } from 'lucide-react';
+import type { Product } from '../lib/types';
+import { formatCurrency } from '../lib/utils';
+import { Clock, IndianRupee, GanttChart } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import ChatIconButton from '../components/ui/ChatIconButton';
 import { useState } from 'react';
+import { X } from 'lucide-react';
 
 
 export default function MyBidsPage() {

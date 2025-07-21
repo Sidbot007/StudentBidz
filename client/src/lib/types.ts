@@ -12,6 +12,7 @@ export interface Product {
   winnerUsername?: string;
   status: 'ACTIVE' | 'ENDED' | 'SOLD';
   restrictedBidders?: number[]; // user IDs restricted from bidding
+  type: string;
 }
 
 export interface User {
@@ -22,13 +23,20 @@ export interface User {
 }
 
 export interface Bid {
-  id: number;
+  id?: number;
   amount: number;
-  bidTime?: string;
-  bidderUsername?: string;
+  timestamp: string;
+  bidderUsername: string;
   bidderId?: number;
-  productId?: number;
-  product?: Product;
+  product: Product;
+}
+
+export interface Message {
+  id: number;
+  content: string;
+  senderUsername: string;
+  receiverUsername: string;
+  createdAt: string;
 }
 
 export interface Notification {

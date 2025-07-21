@@ -1,20 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'wouter';
 import { useAuth } from '../lib/auth';
-import { apiGet } from '../lib/api';
+import { apiGet} from '../lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { ArrowLeft } from 'lucide-react';
 import { Client } from '@stomp/stompjs';
-
-interface Message {
-  id: number;
-  content: string;
-  senderUsername: string;
-  receiverUsername: string;
-  createdAt: string;
-}
+import type { IMessage } from '@stomp/stompjs';
+import type { Message } from '../lib/types';
 
 export default function ChatPage() {
   const { id: productId } = useParams<{ id: string }>();
@@ -40,7 +34,7 @@ export default function ChatPage() {
       reconnectDelay: 5000,
       onConnect: () => {
         setConnected(true);
-        client.subscribe(`/topic/chat/${productId}`, (msg) => {
+        client.subscribe(`/topic/chat/${productId}`, (msg: IMessage) => {
           const message: Message = JSON.parse(msg.body);
           setMessages((prev) => [...prev, message]);
         });

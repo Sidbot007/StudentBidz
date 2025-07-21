@@ -16,7 +16,7 @@ import type { Product, Bid } from '../lib/types';
 import { Clock, User as UserIcon, IndianRupee, ArrowLeft, Settings, RotateCcw, Ban, CheckCircle } from 'lucide-react';
 import { queryClient } from '../lib/queryClient';
 import axios from 'axios';
-import { Client } from '@stomp/stompjs';
+import { Client, IMessage } from '@stomp/stompjs';
 
 const bidSchema = z.object({
   amount: z.number().min(0.01, 'Bid amount must be greater than 0'),
@@ -147,7 +147,7 @@ export default function ProductDetailPage() {
       brokerURL: `ws://localhost:8080/ws?token=${token}`,
       reconnectDelay: 5000,
       onConnect: () => {
-        client.subscribe(`/topic/auction-time-update/${id}`, (msg) => {
+        client.subscribe(`/topic/auction-time-update/${id}`, (msg: IMessage) => {
           const update = JSON.parse(msg.body);
           // Update the product data with new end time
           queryClient.setQueryData(['/api/products', id], (oldData: Product | undefined) => {
@@ -162,7 +162,7 @@ export default function ProductDetailPage() {
         });
 
         // Add subscription for winner declaration
-        client.subscribe(`/topic/winner-declared/${id}`, (msg) => {
+        client.subscribe(`/topic/winner-declared/${id}`, (msg: IMessage) => {
           const winnerUsername = msg.body;
           queryClient.setQueryData(['/api/products', id], (oldData: Product | undefined) => {
             if (oldData) {

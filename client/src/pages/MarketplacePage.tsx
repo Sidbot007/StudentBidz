@@ -1,15 +1,14 @@
+import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'wouter';
-import { useEffect, useRef, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
+import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { formatCurrency, formatTimeRemaining } from '../lib/utils';
-import type { Product } from '../lib/types';
-import { Clock,IndianRupee } from 'lucide-react';
 import { apiGet } from '../lib/api';
+import type { Product } from '../lib/types';
+import { Client, IMessage } from '@stomp/stompjs';
+import { formatCurrency } from '../lib/utils';
+import { Clock } from 'lucide-react';
 import { queryClient } from '../lib/queryClient';
-import { Client } from '@stomp/stompjs';
 import { useAuth } from '../lib/auth';
 
 function ProductCard({ product }: { product: Product }) {
