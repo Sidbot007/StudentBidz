@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { apiGet, apiPost, apiDelete } from '../lib/api';
 import type { Product } from '../lib/types';
 import { Link } from 'wouter';
-import { Clock, IndianRupee, GanttChart, User as UserIcon, Trash2, RotateCcw } from 'lucide-react';
+import { Clock, IndianRupee, Trash2, RotateCcw } from 'lucide-react';
 import { formatCurrency, formatTimeRemaining } from '../lib/utils';
 import { useAuth } from '../lib/auth';
 import { queryClient } from '../lib/queryClient';

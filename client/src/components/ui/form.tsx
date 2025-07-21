@@ -1,19 +1,19 @@
-import * as React from "react";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
 import {
   Controller,
-  FieldValues,
   FormProvider,
   useFormContext,
-} from "react-hook-form";
+} from "react-hook-form"
 
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { Label } from "../ui/label"
+import { cn } from "../../lib/utils"
 
-const Form = FormProvider;
+const Form = FormProvider
 
 type FormFieldContextValue<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends any = any
+  TFieldValues extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues,
+  TName extends import("react-hook-form").FieldPath<TFieldValues> = import("react-hook-form").FieldPath<TFieldValues>
 > = {
   name: TName;
 };
@@ -30,15 +30,12 @@ interface FormFieldProps<TFieldValues extends any = any, TName extends string = 
 }
 
 const FormField = <
-  TFieldValues extends any = any,
-  TName extends string = string
->({
-  render,
-  ...props
-}: FormFieldProps<TFieldValues, TName>) => {
+  TFieldValues extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues,
+  TName extends import("react-hook-form").FieldPath<TFieldValues> = import("react-hook-form").FieldPath<TFieldValues>
+>({ ...props }: import("react-hook-form").ControllerProps<TFieldValues, TName>) => {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} render={render} />
+      <Controller {...props} />
     </FormFieldContext.Provider>
   );
 };
