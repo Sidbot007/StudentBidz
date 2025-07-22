@@ -15,7 +15,6 @@ import { formatCurrency } from '../lib/utils';
 import type { Product, Bid } from '../lib/types';
 import { Clock, User as UserIcon, IndianRupee, ArrowLeft, Settings, RotateCcw, Ban, CheckCircle } from 'lucide-react';
 import { queryClient } from '../lib/queryClient';
-import axios from 'axios';
 import { Client } from '@stomp/stompjs';
 
 const bidSchema = z.object({
@@ -110,9 +109,7 @@ export default function ProductDetailPage() {
   // Add declareWinner mutation
   const declareWinnerMutation = useMutation({
     mutationFn: (bidderId: number) =>
-      axios.patch(`http://localhost:8080/products/${product?.id}/declare-winner/${bidderId}`, {}, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      }),
+      apiPatch(`/products/${product?.id}/declare-winner/${bidderId}`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/products', id] });
     },
@@ -143,8 +140,12 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (!id || !user) return;
     const token = localStorage.getItem('token');
+    
+    // Use environment variable for WebSocket URL, fallback to localhost
+    const wsBaseUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8080';
+    
     const client = new Client({
-      brokerURL: `ws://localhost:8080/ws?token=${token}`,
+      brokerURL: `${wsBaseUrl}/ws?token=${token}`,
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe(`/topic/auction-time-update/${id}`, (msg: import('@stomp/stompjs').IMessage) => {
@@ -270,7 +271,7 @@ export default function ProductDetailPage() {
           {/* Product Image */}
           <div className="aspect-square rounded-lg bg-gray-100 overflow-hidden">
             <img 
-              src={`http://localhost:8080${product.imageUrl}`} 
+              src={product.imageUrl} 
               alt={product.title}
               className="w-full h-full object-cover"
             />

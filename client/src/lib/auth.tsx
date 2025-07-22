@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import axios from 'axios';
+import { apiGet, apiPost } from './api';
 
 interface User {
   id?: number;
@@ -27,13 +27,11 @@ export function AuthProvider({ children }: { children: ReactNode }): React.React
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:8080/me', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      apiGet<User>('/me')
         .then(res => {
-          setUser(res.data);
-          localStorage.setItem('username', res.data.username);
-          localStorage.setItem('email', res.data.email);
+          setUser(res);
+          localStorage.setItem('username', res.username);
+          localStorage.setItem('email', res.email);
         })
         .catch(() => {
           localStorage.removeItem('token');
@@ -49,16 +47,15 @@ export function AuthProvider({ children }: { children: ReactNode }): React.React
 
   const register = async (name: string, email: string, password: string) => {
     try {
-      await axios.post('http://localhost:8080/register', {
+      await apiPost('/register', {
         username: name,
         email,
         password,
       });
-      setUser({ username: name, email });
-      localStorage.setItem('username', name);
-      localStorage.setItem('email', email);
+      // After successful registration, log the user in to get a token
+      await login(name, password);
     } catch (err: any) {
-      if (err.response && typeof err.response.data === 'string' && err.response.data.includes('exists')) {
+      if (err.message && err.message.includes('exists')) {
         throw new Error('User is already registered');
       }
       throw new Error('Registration failed');
@@ -66,21 +63,15 @@ export function AuthProvider({ children }: { children: ReactNode }): React.React
   };
 
   const login = async (username: string, password: string) => {
-    const res = await axios.post('http://localhost:8080/login', { username, password });
-    const { token } = res.data;
+    const res = await apiPost<{ token: string }>('/login', { username, password });
+    const { token } = res;
     localStorage.setItem('token', token);
-    localStorage.setItem('username', username);
-    setUser({ username, email: '' });
-    // Fetch user info after login
-    try {
-      const meRes = await axios.get('http://localhost:8080/me', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUser(meRes.data);
-      localStorage.setItem('email', meRes.data.email);
-    } catch {
-      // fallback: keep minimal user info
-    }
+    
+    // The interceptor will now add the token, so we can refetch user
+    const meRes = await apiGet<User>('/me');
+    setUser(meRes);
+    localStorage.setItem('username', meRes.username);
+    localStorage.setItem('email', meRes.email);
   };
 
   const logout = () => {
