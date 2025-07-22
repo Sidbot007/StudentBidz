@@ -10,6 +10,7 @@ import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { useAuth } from '../lib/auth';
 import { IndianRupee, Clock, X } from 'lucide-react';
+import { apiPost } from '../lib/api';
 
 const sellSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -43,7 +44,6 @@ export default function SellPage() {
   const sellMutation = useMutation({
     mutationFn: async (data: SellFormData) => {
       const endTime = new Date(Date.now() + data.biddingDuration * 60 * 60 * 1000);
-      
       const formData = new FormData();
       formData.append('product', new Blob([JSON.stringify({
         title: data.title,
@@ -52,25 +52,15 @@ export default function SellPage() {
         endTime: endTime.toISOString(),
         type: data.type,
       })], { type: 'application/json' }));
-      
       if (selectedFile) {
         formData.append('image', selectedFile);
       }
-
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/products', {
-        method: 'POST',
+      // Use apiPost for consistency and correct base URL
+      await apiPost('/products', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: formData,
       });
-      // Use apiPost for consistency
-      // return await apiPost('/products', formData);
-      if (!response.ok) {
-        throw new Error('Failed to create product');
-      }
-      return response.json();
     },
     onSuccess: () => {
       setLocation('/marketplace');

@@ -26,12 +26,13 @@ function ProductCard({ product }: { product: Product }) {
     isEndingSoon = msLeft > 0 && msLeft <= 60 * 60 * 1000;
   }
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
   return (
     <Card className="hover:shadow-lg transition-shadow border border-gray-200 rounded-xl p-0 overflow-hidden bg-white">
       <div className="flex flex-col h-full">
         <div className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
           <img 
-            src={`http://localhost:8080${product.imageUrl}`} 
+            src={`${apiBaseUrl}${product.imageUrl}`} 
             alt={product.title}
             className="w-full h-full object-contain rounded-t-xl"
           />

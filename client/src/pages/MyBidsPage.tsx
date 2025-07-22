@@ -37,6 +37,8 @@ export default function MyBidsPage() {
     return <div className="min-h-screen flex items-center justify-center text-red-600">Error loading your bids.</div>;
   }
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +64,7 @@ export default function MyBidsPage() {
                 <CardHeader className="pb-3">
                   <div className="aspect-square rounded-lg bg-gray-100 mb-3 overflow-hidden">
                     <img
-                      src={`http://localhost:8080${bid.product?.imageUrl ?? ''}`}
+                      src={`${apiBaseUrl}${bid.product?.imageUrl ?? ''}`}
                       alt={bid.product?.title ?? 'Product'}
                       className="w-full h-full object-cover"
                     />

@@ -67,6 +67,8 @@ export default function SoldItemsPage() {
     return endTime ? new Date() < new Date(endTime) : false;
   };
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +106,7 @@ export default function SoldItemsPage() {
                     <div className="flex-1">
                       <div className="aspect-square rounded-lg bg-gray-100 mb-3 overflow-hidden">
                         <img
-                          src={`http://localhost:8080${product.imageUrl}`}
+                          src={`${apiBaseUrl}${product.imageUrl}`}
                           alt={product.title}
                           className="w-full h-full object-cover"
                         />
