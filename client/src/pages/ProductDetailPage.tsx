@@ -236,6 +236,7 @@ export default function ProductDetailPage() {
     );
   }
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
   const endTime = product.biddingEndTime || product.endTime || '';
   const isActive = product.status === 'ACTIVE' && (endTime ? new Date() < new Date(endTime) : false);
   const isSold = product.status === 'SOLD';
@@ -271,7 +272,7 @@ export default function ProductDetailPage() {
           {/* Product Image */}
           <div className="aspect-square rounded-lg bg-gray-100 overflow-hidden">
             <img 
-              src={product.imageUrl} 
+              src={`${apiBaseUrl}${product.imageUrl}`} 
               alt={product.title}
               className="w-full h-full object-cover"
             />
