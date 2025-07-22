@@ -58,6 +58,7 @@ export default function SellPage() {
       // Use apiPost for consistency and correct base URL
       await apiPost('/products', formData, {
         headers: {
+          // Do NOT set 'Content-Type' here! Only Authorization.
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
