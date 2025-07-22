@@ -1,7 +1,6 @@
 import { Link } from 'wouter';
 import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Users, Clock, MessageSquare, Info } from 'lucide-react';
+import { Users, Clock, MessageSquare, Info, Search, Gavel, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import BiddingRulesModal from '../components/BiddingRulesModal';
 
@@ -28,7 +27,7 @@ function BagIcon({ className = "" }) {
 export default function LandingPage() {
   const [showRules, setShowRules] = useState(false);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-black">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,11 +61,11 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-50 mb-6">
             Buy & Sell Student Items
-            <span className="text-blue-600"> Through Bidding</span>
+            <span className="text-blue-500"> Through Bidding</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
             Join the ultimate student marketplace where you can find amazing deals on used items 
             and sell your own products through an exciting bidding system.
           </p>
@@ -77,7 +76,7 @@ export default function LandingPage() {
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="outline" size="lg" className="px-8 py-3">
+              <Button size="lg" className="px-8 py-3">
                 Browse Items
               </Button>
             </Link>
@@ -86,139 +85,126 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="bg-blue-600 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose StudentBidz?
-            </h3>
-            <p className="text-lg text-gray-600">
-              The perfect platform for students to buy and sell items with ease
+            <h2 className="text-3xl font-bold text-white">Why Choose StudentBidz?</h2>
+            <p className="mt-4 text-lg text-blue-100">
+              The perfect platform for students to buy and sell items with ease.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center">
-              <CardHeader>
-                <BagIcon className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Easy Bidding</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Participate in exciting bidding wars to get the best deals on student items
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Clock className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                <CardTitle>Real-time Updates</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Get instant notifications about bid updates and auction timers
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <MessageSquare className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle>Direct Chat</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Connect with buyers and sellers through our built-in messaging system
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="h-12 w-12 text-orange-600 mx-auto mb-4" />
-                <CardTitle>Student Community</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Join a trusted community of students buying and selling items
-                </CardDescription>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Feature 1 */}
+            <div className="text-center text-white">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white text-blue-600 mb-4 mx-auto">
+                <Users className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium">For Students, By Students</h3>
+              <p className="mt-2 text-base text-blue-200">
+                A marketplace exclusively for the student community.
+              </p>
+            </div>
+            {/* Feature 2 */}
+            <div className="text-center text-white">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white text-blue-600 mb-4 mx-auto">
+                <Clock className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium">Real-Time Bidding</h3>
+              <p className="mt-2 text-base text-blue-200">
+                Experience the thrill of live auctions and snag the best deals.
+              </p>
+            </div>
+            {/* Feature 3 */}
+            <div className="text-center text-white">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white text-blue-600 mb-4 mx-auto">
+                <MessageSquare className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium">Secure Chat</h3>
+              <p className="mt-2 text-base text-blue-200">
+                Connect with sellers and winners safely after an auction ends.
+              </p>
+            </div>
+            {/* Feature 4 */}
+            <div className="text-center text-white">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white text-blue-600 mb-4 mx-auto">
+                <Info className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium">Fair Bidding Rules</h3>
+              <p className="mt-2 text-base text-blue-200">
+                Our rules ensure a fair and transparent bidding process for everyone.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="bg-black py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              How It Works
-            </h3>
-            <p className="text-lg text-gray-600">
-              Simple steps to start buying and selling
+            <h2 className="text-3xl font-bold text-gray-50">How It Works</h2>
+            <p className="mt-4 text-lg text-gray-300">
+              A simple, secure, and fun way to trade within the student community.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-blue-600">1</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className="bg-slate-900 p-8 rounded-lg">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                <Search className="h-6 w-6" />
               </div>
-              <h4 className="text-xl font-semibold mb-2">Register & Browse</h4>
-              <p className="text-gray-600">
-                Create your account and start browsing amazing student items for sale
+              <h3 className="text-lg font-medium text-gray-50">Find an Item</h3>
+              <p className="mt-2 text-base text-gray-400">
+                Browse our marketplace for items listed by fellow students.
               </p>
             </div>
+            {/* Step 2 */}
+            <div className="bg-slate-900 p-8 rounded-lg">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                <Gavel className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-50">Place a Bid</h3>
+              <p className="mt-2 text-base text-gray-400">
+                Enter your bid and stay updated in real-time. Outbid others to win.
+              </p>
+            </div>
+            {/* Step 3 */}
+            <div className="bg-slate-900 p-8 rounded-lg">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                <Trophy className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-50">Win & Collect</h3>
+              <p className="mt-2 text-base text-gray-400">
+                If your bid is the highest when the auction ends, the item is yours!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-green-600">2</span>
-              </div>
-              <h4 className="text-xl font-semibold mb-2">Bid & Win</h4>
-              <p className="text-gray-600">
-                Place competitive bids on items you want and win auctions
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-purple-600">3</span>
-              </div>
-              <h4 className="text-xl font-semibold mb-2">Connect & Trade</h4>
-              <p className="text-gray-600">
-                Chat with the seller and complete your transaction safely
-              </p>
-            </div>
+      {/* Call to Action Section */}
+      <section className="bg-black py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-50">Ready to Get Started?</h2>
+          <p className="mt-4 text-lg text-gray-300">
+            Create an account today and start bidding, or list your own items for sale.
+          </p>
+          <div className="mt-8">
+            <Link href="/register">
+              <Button size="lg" className="px-8 py-3">
+                Create Your Account
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <BagIcon className="h-8 w-8 text-blue-400 mr-2" />
-              <h1 className="text-2xl font-bold">StudentBidz</h1>
-            </div>
-            <p className="text-gray-400 mb-4">
-              The best place for students to buy and sell items through bidding
-            </p>
-            <div className="flex justify-center space-x-6">
-              <Link href="/login">
-                <Button variant="ghost" className="text-white hover:text-blue-400">
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="ghost" className="text-white hover:text-blue-400">
-                  Register
-                </Button>
-              </Link>
-            </div>
-          </div>
+      <footer className="bg-black border-t border-gray-800">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-gray-400">
+            &copy; 2025 StudentBidz. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
