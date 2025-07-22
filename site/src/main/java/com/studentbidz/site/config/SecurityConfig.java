@@ -46,7 +46,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("https://student-bidz-xz.vercel.app"); // Vercel frontend
+        config.addAllowedOriginPattern("https://*.vercel.app"); // Vercel frontend
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
