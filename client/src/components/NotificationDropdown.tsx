@@ -96,8 +96,9 @@ export default function NotificationDropdown() {
   useEffect(() => {
     if (!user) return;
     const token = localStorage.getItem('token');
+    const wsBaseUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8080';
     const client = new Client({
-      brokerURL: `ws://localhost:8080/ws?token=${token}`,
+      brokerURL: `${wsBaseUrl}/ws?token=${token}`,
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe('/user/topic/notifications', (msg: import('@stomp/stompjs').IMessage) => {
